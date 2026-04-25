@@ -110,3 +110,61 @@ body {
   font-size: 18px;
   color: #e8e8ee;
 }
+
+.analysis-controls {
+  margin-top: 24px;
+  background: #181922;
+  border: 1px solid #2b2d3a;
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.analysis-controls h2 {
+  margin: 0 0 8px;
+}
+
+.analysis-controls p {
+  margin: 0;
+  color: #a6a6b3;
+}
+
+.analysis-controls button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 20px;
+  background: white;
+  color: #11121a;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.analysis-controls button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.results-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 360px));
+  gap: 24px;
+}
+
+.result-card {
+  background: #181922;
+  border: 1px solid #2b2d3a;
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.result-card h3 {
+  margin-top: 0;
+}
+
+.result-card p {
+  color: #e8e8ee;
+}
