@@ -5,7 +5,7 @@ import { useGamepad } from './hooks/useGamepad'
 import { createStickSample, analyzeDriftSession } from './logic/driftAnalysis'
 import { StickPanel } from './components/StickPanel'
 import { AnalysisControls } from './components/AnalysisControls'
-import { AnalysisResultCard } from './components/AnalysisResultCard'
+import { AnalysisModal } from './components/AnalysisModal'
 
 const ANALYSIS_DURATION_MS = 10000
 
@@ -15,6 +15,7 @@ export default function App() {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [secondsLeft, setSecondsLeft] = useState(0)
   const [analysisResult, setAnalysisResult] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
   const samplesRef = useRef({
     leftStick: [],
@@ -30,8 +31,9 @@ export default function App() {
     }
 
     setAnalysisResult(null)
+    setShowModal(false)
     setIsAnalyzing(true)
-    setSecondsLeft(5)
+    setSecondsLeft(Math.ceil(ANALYSIS_DURATION_MS / 1000))
     analysisStartTimeRef.current = Date.now()
   }
 
@@ -53,6 +55,7 @@ export default function App() {
         const result = analyzeDriftSession(samplesRef.current)
 
         setAnalysisResult(result)
+        setShowModal(true)
         setIsAnalyzing(false)
       }
     }, 16)
@@ -97,18 +100,10 @@ export default function App() {
             onStart={startAnalysis}
           />
 
-          {analysisResult && (
-            <section className="results-grid">
-              <AnalysisResultCard
-                title="Left Stick Result"
-                result={analysisResult.leftStick}
-              />
-              <AnalysisResultCard
-                title="Right Stick Result"
-                result={analysisResult.rightStick}
-              />
-            </section>
-          )}
+          <AnalysisModal
+            result={showModal ? analysisResult : null}
+            onClose={() => setShowModal(false)}
+          />
         </>
       )}
     </main>
