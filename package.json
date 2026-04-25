@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron": "wait-on http://localhost:5173 && electron electron/main.js",
+  "start": "concurrently \"npm run dev\" \"npm run electron\""
   },
   "dependencies": {
     "concurrently": "^9.2.1",
